@@ -22,7 +22,7 @@
     "start": "npm run dev",
     "build": "node build/build.js wx",
     "lint": "eslint --ext .js,.vue src",
-    "mpinit": "cd src/project && git clone git@git.huishoubao.com.cn:xiaozhilong/mp_init.git "
+    "mpinit": "vue init GdFed/all_mp"
   },
   "dependencies": {
     "exif-js": "^2.3.0",
