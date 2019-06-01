@@ -1,0 +1,36 @@
+@import url("font.scss");
+
+page {
+  display: flex;
+  min-height: 100%;
+  font-family: 'DINCondensedC', 'Minecraft', 'HYXiaoMaiTiJ';
+}
+
+.page {
+  width: 100%;
+  flex: 1;
+}
+
+.input-placeholder {
+  font-size: 13px;
+  color: #949BA1;
+}
+
+input {
+  font-size: 13px;
+  color: #2B2D2E;
+}
+page button{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+}
+page button[disabled]{
+  background: transparent;
+}
+page button::after{
+  border: none;
+}
