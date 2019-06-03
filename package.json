@@ -22,10 +22,10 @@
     "start": "npm run dev",
     "build": "node build/build.js wx",
     "lint": "eslint --ext .js,.vue src",
-    "mpinit": "vue init GdFed/all_mp"
+    "mpinit": "vue init GdFed/all_mp",
+    "xui": "vue init GdFed/xui_libs"
   },
   "dependencies": {
-    "exif-js": "^2.3.0",
     "mockjs": "^1.0.1-beta3",
     "mpvue": "^2.0.0",
     "npm": "^6.9.0",

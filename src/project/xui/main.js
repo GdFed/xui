@@ -1,4 +1,4 @@
-import gio from './utils/gio-minp'
+import gio from '@/libs/gio-minp'
 import hack from './utils/hack'
 import Vue from 'vue'
 import App from './App'

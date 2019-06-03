@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 export default function mock (path) {
   let mockData = {}
   switch (path) {
-    case '/api/user/checkLoginStatus':
+    case '/api/XXXX/XXXX':
       mockData = Mock.mock({
         _errCode: 1,
         _errStr: 'test',

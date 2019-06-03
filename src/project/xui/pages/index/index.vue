@@ -11,8 +11,9 @@
         <progressDiy :percent="70"></progressDiy>
         <delView @delete="deleteMe">右滑删除</delView>
         <div class="get-img" @click="getImg">获取图片</div>
-        <jsonView v-model="esifData"></jsonView>
-        <jsonView v-model="locationData"></jsonView>
+        <!-- <jsonView v-model="esifData"></jsonView> -->
+        <text space>{{esifData}}</text>
+        <text space>{{locationData}}</text>
       </div>
     </div>
   </div>
@@ -20,7 +21,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import crypto from '../../utils/crypto.standard'
+import crypto from '@/libs/crypto.standard'
 import clock from '@/components/clock'
 import progressDiy from '@/components/progress'
 import authBtn from '@/components/auth-btn'
@@ -29,7 +30,7 @@ import jsonView from '@/components/json-view'
 import skeleton from '@/components/skeleton'
 import exif from '../../utils/exif'
 import getAddress from '../../utils/gps2addr'
-import {formatMoney, signUrl} from '../../utils'
+import {formatMoney, pretty} from '../../utils'
 export default {
   data () {
     return {
@@ -80,8 +81,6 @@ export default {
   onHide () {
   },
   async onShow () {
-    let urlstr = signUrl('https://mobile.huishoubao.com/hsbh5/activity/activityOriginalCost', {key: 1111})
-    console.log(urlstr)
     this.formatMoney = formatMoney(1)
     let res = await this.$func('uploadImg', {})
     console.log(res)
@@ -99,7 +98,7 @@ export default {
           // tempFilePath可以作为img标签的src属性显示图片
           let esifRes = await exif(res.tempFilePaths[0])
           console.log(esifRes)
-          this.esifData = JSON.stringify(esifRes.exifdata, 2)
+          this.esifData = pretty(esifRes.exifdata)
           // wannaData.GPSAltitude = esifData.GPSAltitude // 海拔
           // wannaData.GPSDestBearing = esifData.GPSDestBearing // 目标方位
           // wannaData.GPSDestDistance = esifData.GPSDestDistance // 目标距离
@@ -117,7 +116,7 @@ export default {
           let locationRet = await getAddress(esifRes.exifdata)
           console.log(locationRet)
           if (+locationRet.status === 0) {
-            this.locationData = JSON.stringify(locationRet.result, 2)
+            this.locationData = pretty(locationRet.result)
             // wannaData.address = locationData.address
             // wannaData.address_component = locationData.address_component
             // wannaData.ad_info = locationData.ad_info
@@ -149,6 +148,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+text{
+  text-align: left;
+}
 .contain{
   display: flex;
   flex-direction: column;

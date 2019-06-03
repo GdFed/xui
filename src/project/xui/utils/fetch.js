@@ -1,16 +1,12 @@
 import Fly from 'flyio/dist/npm/wx'
 import { buildQuery, signUrl } from './index'
 import conf from '../config'
-// import mock from './mock'
+import mock from './mock'
 const fly = new Fly()
 
 fly.config.timeout = 30000
 
 fly.interceptors.request.use((config, promise) => {
-  const userInfo = wx.getStorageSync('userInfo')
-  const token = userInfo ? (userInfo.token || '') : ''
-  const disseminatorUid = userInfo ? (userInfo.disseminatorUid || '') : ''
-
   // current page route
   let currentPath = 'app'
   try {
@@ -21,7 +17,7 @@ fly.interceptors.request.use((config, promise) => {
       currentPath = currentPage
     }
   } catch (e) {
-    //
+    // console.log(e)
   }
 
   // delete field of which value equal string undefined
@@ -37,8 +33,6 @@ fly.interceptors.request.use((config, promise) => {
 
   // build common query
   if (config.url.indexOf(conf.apiBase) !== -1) {
-    config.url = buildQuery(config.url, 'token', token)
-    config.url = buildQuery(config.url, 'disseminatorUid', disseminatorUid)
     config.url = buildQuery(config.url, 'version', conf.version)
     config.url = buildQuery(config.url, 'pid', conf.pid)
     config.url = buildQuery(config.url, 'platform', conf.platform)
@@ -63,24 +57,6 @@ fly.interceptors.response.use(
   res => {
     // console.log(res)
     try {
-      const config = res.request
-
-      // 回收宝协议
-      if (config.url.indexOf(conf.apiBase) === 0) {
-        const code = res.data._errCode
-        const timeEnd = +new Date()
-        let reportUri = 'https://logreport.huishoubao.com/hjxapps/?1='
-        let affix = parseInt(timeEnd / 1000)
-        affix += `=${conf.logreport.callee}=${conf.logreport.calleeIp}=${conf.logreport.caller}=${conf.logreport.callerIp}=`
-        affix += `${config.routePath}=${code}=${timeEnd - config.startTime}`
-        // 可用性上报
-        if (conf.isProd) {
-          wx.request({ url: reportUri + affix })
-        } else {
-          console.log(affix)
-        }
-      }
-
       return res.data
     } catch (err) {
       console.log(err)
@@ -89,27 +65,27 @@ fly.interceptors.response.use(
   error => {
     // console.log(error)
     try {
-      // 回收宝协议
-      if (error.request.url.indexOf(conf.apiBase) === 0) {
-        const code = error.status
-        const timeEnd = +new Date()
-        let reportUri = 'https://logreport.huishoubao.com/hjxapps/?1='
-        let affix = parseInt(timeEnd / 1000)
-        affix += `=${conf.logreport.callee}=${conf.logreport.calleeIp}=${conf.logreport.caller}=${conf.logreport.callerIp}=`
-        affix += `${error.request.routePath}=${code}=${timeEnd - error.request.startTime}`
+      // // 回收宝协议
+      // if (error.request.url.indexOf(conf.apiBase) === 0) {
+      //   const code = error.status
+      //   const timeEnd = +new Date()
+      //   let reportUri = 'https://logreport.huishoubao.com/hjxapps/?1='
+      //   let affix = parseInt(timeEnd / 1000)
+      //   affix += `=${conf.logreport.callee}=${conf.logreport.calleeIp}=${conf.logreport.caller}=${conf.logreport.callerIp}=`
+      //   affix += `${error.request.routePath}=${code}=${timeEnd - error.request.startTime}`
 
-        // 可用性上报
-        if (conf.isProd) {
-          wx.request({ url: reportUri + affix })
-        } else {
-          console.log(affix)
-        }
-      }
+      //   // 可用性上报
+      //   if (conf.isProd) {
+      //     wx.request({ url: reportUri + affix })
+      //   } else {
+      //     console.log(affix)
+      //   }
+      // }
 
       // mock数据
-      // if (+error.status === 404) {
-      //   return Promise.resolve(mock(error.request.routePath))
-      // }
+      if (+error.status === 404) {
+        return Promise.resolve(mock(error.request.routePath))
+      }
 
       return Promise.resolve({
         _errCode: error.status,

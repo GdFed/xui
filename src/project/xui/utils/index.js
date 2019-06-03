@@ -1,4 +1,5 @@
 import sha1 from 'sha1'
+import {translation} from '&/config'
 
 // 数字签名
 export function signUrl (url = '', obj = {}) {
@@ -80,6 +81,40 @@ export function formatNum (num, digit = 2, str = '0') {
 export function func (name, data = {}, config = {}) {
   return wx.cloud.callFunction({name, data, config})
 }
+export function isEmpty (obj) {
+  return Object.keys(obj).length === 0
+}
+export function isArray (arr) {
+  return arr instanceof Array
+}
+export function isObject (obj) {
+  return obj instanceof Object
+}
+export function translate (str) {
+  return translation[str] || str
+}
+// 美化代码
+export function pretty (obj, splitStr = '|--', line = 0) {
+  if (isEmpty(obj) && isArray(obj)) return '[]'
+  if (isEmpty(obj) && isObject(obj)) return '{}'
+  let strPretty = line === 0 ? '' : '\r\n'
+  for (let a in obj) {
+    if (obj.hasOwnProperty(a)) {
+      if (typeof obj[a] === 'object') {
+        if (obj[a] instanceof Number) {
+          strPretty += ''.padStart(splitStr.length * line, splitStr) + translate(a) + ' : ' + obj[a] + ' [' + obj[a].numerator + '/' + obj[a].denominator + ']\r\n'
+        } else if (isArray(obj[a])) {
+          strPretty += ''.padStart(splitStr.length * line, splitStr) + translate(a) + ' : ' + `[${obj[a].join()}]` + '\r\n'
+        } else {
+          strPretty += ''.padStart(splitStr.length * line, splitStr) + translate(a) + ' : ' + pretty(obj[a], splitStr, line + 1) + '\r\n'
+        }
+      } else {
+        strPretty += ''.padStart(splitStr.length * line, splitStr) + translate(a) + ' : ' + obj[a] + '\r\n'
+      }
+    }
+  }
+  return strPretty
+}
 
 export default {
   signUrl,
@@ -88,5 +123,9 @@ export default {
   formatMoney,
   formatNum,
   formatTime,
-  func
+  func,
+  pretty,
+  isArray,
+  isObject,
+  isEmpty
 }

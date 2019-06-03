@@ -1,12 +1,6 @@
-import QQMapWX from './qqmap-wx-jssdk'
+import QQMapWX from '@/libs/qqmap-wx-jssdk'
 var qqmapsdk = {}
 function getAddress (exif) {
-  // let direction = ''
-  // if (exif.GPSImgDirection) {
-  //   const directionArry = exif.GPSImgDirection // 方位角
-  //   direction = directionArry.numerator / directionArry.denominator
-  // }
-
   let longitude = ''
   if (exif.GPSLongitude) {
     const LongitudeArry = exif.GPSLongitude
@@ -15,9 +9,6 @@ function getAddress (exif) {
       LongitudeArry[1].numerator / LongitudeArry[1].denominator / 60 +
       LongitudeArry[2].numerator / LongitudeArry[2].denominator / 3600
     longitude = longLongitude.toFixed(8)
-    // if (exif.GPSLongitudeRef !== 'E') {
-    //   longitude = -longitude
-    // }
   }
   let latitude = ''
   if (exif.GPSLatitude) {
@@ -27,9 +18,6 @@ function getAddress (exif) {
         LatitudeArry[1].numerator / LatitudeArry[1].denominator / 60 +
         LatitudeArry[2].numerator / LatitudeArry[2].denominator / 3600
     latitude = longLatitude.toFixed(8)
-    // if (exif.GPSLatitudeRef !== 'N') {
-    //   latitude = -latitude
-    // }
   }
   qqmapsdk = new QQMapWX({key: 'FM3BZ-6WDCS-ZWQOF-6Z2EX-4CJWS-AGBNM'})
   return new Promise((resolve, reject) => {
