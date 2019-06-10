@@ -128,7 +128,7 @@ export default {
       wx.showToast({
         title: '删除成功',
         icon: 'success'})
-      // wx.navigateTo({ url: '/pages/index/main' })
+      wx.navigateTo({ url: '/pages/list/main' })
     },
     async getData (res) {
       if (res) {

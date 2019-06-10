@@ -4,16 +4,14 @@
       <div v-for="(item,index) in skeletonRectLists"
           :index='index'
           :key='item'
-          class="chiaroscuro"
-          :class="loading=='chiaroscuro'? 'chiaroscuro':''"
-          :style="{'width':item.width+'px','height':item.height+'px','background-color':'rgba(233, 2, 233,1)','position':'absolute','left':item.left+'px','top':item.top+'px'}">
+          :class="loading=='chiaroscuro'? 'chiaroscuro':'stripes'"
+          :style="{'width':item.width+'px','height':item.height+'px','background-color':'rgba(233,233,233,1)','position':'absolute','left':item.left+'px','top':item.top+'px'}">
       </div>
       <div v-for="(item,index) in skeletonCircleLists"
           :index='index'
           :key='item'
-          class="chiaroscuro"
-          :class="loading == 'chiaroscuro' ? 'chiaroscuro' : ''"
-          :style="{'width':item.width+'px','height':item.height+'px','background-color':'rgba(233, , 233,1)','border-radius':item.width+'px','position':'absolute','left':item.left+'px','top':item.top+'px'}">
+          :class="loading == 'chiaroscuro' ? 'chiaroscuro' : 'stripes'"
+          :style="{'width':item.width+'px','height':item.height+'px','background-color':'rgba(233,233,233,1)','border-radius':item.width+'px','position':'absolute','left':item.left+'px','top':item.top+'px'}">
       </div>
   </div>
 </template>
@@ -117,5 +115,20 @@ export default {
   100% {
     background-position: 468px 0
   }
+}
+ .stripes {
+    background: rgb(194, 207, 214);
+    background-image: linear-gradient(90deg,rgba(255, 255, 255, 0.15) 25%, transparent 25%);
+    background-size: 375px 375px;
+    animation: skeleton-stripes 1s linear infinite;
+}
+ 
+@keyframes skeleton-stripes {
+    from {
+        background-position: 0 0 ;
+    }
+    to {
+        background-position: 375px 0;
+    }
 }
 </style>
