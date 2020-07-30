@@ -2,9 +2,9 @@
   "name": "all_mp",
   "version": "1.0.0",
   "mpvueTemplateProjectVersion": "0.1.0",
-  "description": "A Mpvue project",
-  "author": "xiaozhilong <xiaozhilong@huishoubao.com.cn>",
-  "private": true,
+  "description": "<%=description%>",
+  "author": "<%=author%>",
+  "private": "<%=private%>",
   "scripts": {
     "dev:wx": "node build/dev-server.js wx",
     "start:wx": "npm run dev:wx",
