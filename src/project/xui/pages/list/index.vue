@@ -11,7 +11,7 @@
         <scroll-view class="brands" scroll-y>
           <div class="brand skeleton-radius" v-for="(brand, index) in brands" :key="index">{{brand}}</div>
         </scroll-view>
-        <scroll-view class="products" scroll-y>
+        <scroll-view class="products" scroll-y lower-threshold="20" @scrolltolower="bindScrollTolower">
           <div class="product skeleton-rect" v-for="(product, index) in products" :key="index">{{product}}</div>
         </scroll-view>
       </div>
@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       showSkeleton: true,
-      cates: ['手机', '平板', '笔记本', '相机'],
+      cates: ['手机', '手机', '手机', '手机'],
       brands: ['苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果', '苹果'],
       products: ['iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7', 'iPhone 7']
     }
@@ -41,16 +41,13 @@ export default {
   },
   async onShow () {
     setTimeout(() => {
-      // this.showSkeleton = false
+      this.showSkeleton = false
     }, 1000)
-    // setTimeout(() => {
-    //   this.showSkeleton2 = false
-    // }, 1500)
-    // setTimeout(() => {
-    //   this.showSkeleton3 = false
-    // }, 3000)
   },
   methods: {
+    bindScrollTolower (e) {
+      this.products.push('iPhone 8')
+    }
   }
 }
 </script>
@@ -108,6 +105,7 @@ export default {
           font-size: 14px;
           height: 40px;
           margin: 12px;
+          line-height: 40px;
         }
       }
       .products{
@@ -122,6 +120,7 @@ export default {
           font-size: 14px;
           height: 40px;
           margin: 12px;
+          line-height: 40px;
         }
       }
     }

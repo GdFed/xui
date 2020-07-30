@@ -1,13 +1,23 @@
 {
   "pages": [
+    "pages/cale/main",
     "pages/index/main",
+    "pages/three/main",
+    "pages/wheel/main",
+    "pages/rain/main",
     "pages/list/main"
   ],
   "cloud": true,
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "W-UI",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "renderingMode": "mixed"
   }
 }

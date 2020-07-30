@@ -2,9 +2,9 @@
   "name": "all_mp",
   "version": "1.0.0",
   "mpvueTemplateProjectVersion": "0.1.0",
-  "description": "A Mpvue project",
-  "author": "xiaozhilong <xiaozhilong@huishoubao.com.cn>",
-  "private": true,
+  "description": "<%=description%>",
+  "author": "<%=author%>",
+  "private": "<%=private%>",
   "scripts": {
     "dev:wx": "node build/dev-server.js wx",
     "start:wx": "npm run dev:wx",
@@ -31,6 +31,7 @@
     "npm": "^6.9.0",
     "only": "0.0.2",
     "sha1": "^1.1.1",
+    "three.js": "^0.77.1",
     "vant-weapp": "^0.5.7",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.5.4"

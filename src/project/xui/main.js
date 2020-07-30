@@ -5,7 +5,7 @@ import App from './App'
 import store from './store/index'
 import api from './api/index'
 import conf from './config'
-import http from './utils/fetch'
+// import http from './utils/fetch'
 import {func} from './utils'
 let { isProd, version } = conf
 require('core-js/library/modules/_global.js').console = console
@@ -33,7 +33,7 @@ Vue.prototype.$gio = gio
 Vue.prototype.$store = store
 Vue.prototype.$api = api
 Vue.prototype.$conf = conf
-Vue.prototype.$http = http
+// Vue.prototype.$http = http
 Vue.prototype.$func = func
 
 const app = new Vue(App)

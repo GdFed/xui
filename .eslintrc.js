@@ -38,6 +38,7 @@ module.exports = {
     requirePlugin: true,
     mpvue: true,
     mpvuePlatform: true,
+    requestAnimationFrame: true,
     getCurrentPages: true
   }
 }
